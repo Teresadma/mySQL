@@ -32,6 +32,17 @@ async function main()
         // let sql = "SELECT AVG (mark) FROM marks WHERE date>='2023-01-01' AND date<='2023-12-31' GROUP BY subject_id";
         // let sql = "SELECT AVG (mark) FROM marks WHERE date>='2023-01-01' AND date<='2023-12-31' GROUP BY student_id";
 
+        //////////DIA 3////////////////////////
+        // let sql = "SELECT subject_id, title, student_id FROM subjects AS s INNER JOIN marks AS m ON (s.subject_id = m.subject_id) "
+        // let sql = "SELECT first_name, last_name,title FROM students AS s INNER JOIN marks AS m ON (s.student_id = m.student_id) INNER JOIN subjects AS sub ON (sub.subject_id = m.subject_id)"
+        // let sql = "SELECT first_name, last_name,title FROM teachers AS t INNER JOIN subject_teacher AS st ON (t.teacher_id = st.teacher_id) INNER JOIN subjects AS sub ON (sub.subject_id = st.subject_id)"
+        // let sql = `SELECT sub.subject_id, title, t.first_name, t.last_name, COUNT(student_id) 
+        // FROM students AS s 
+        // INNER JOIN grupitos AS g ON (s.group_id = g.group_id) 
+        // INNER JOIN subject_teacher AS st ON (g.group_id = st.group_id) 
+        // INNER JOIN teachers AS t ON (st.teacher_id = t.teacher_id)
+        // INNER JOIN subjects AS sub ON (st.subject_id = sub.subject_id)
+        // GROUP BY subject_id`
 
         let [result] = await connection.query(sql);
         console.log(result)
