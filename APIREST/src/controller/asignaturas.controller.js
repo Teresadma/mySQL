@@ -1,14 +1,14 @@
-const { response } = require("../app");
 const {pool} = require("../database")
 
 
 const getMediaAl = async (request,response) =>
 {
     try {
-        
-        let sql = "SELECT AVG (mark) FROM marks WHERE student_id = '" + request.params.student_id + "'";
+        let params = [];
+        let sql = "SELECT AVG (mark) FROM marks WHERE student_id = ?";
         console.log(sql);
-        let [result] = await pool.query(sql);
+        params = request.params.student_id;
+        let [result] = await pool.query(sql,params);
         console.log(result);
 
         if (result)
@@ -26,9 +26,11 @@ const getAsignaturas = async (request,response) =>
 {
     try
     {
-        let sql = "SELECT title FROM subjects INNER JOIN marks ON (subjects.subject_id = marks.subject_id) WHERE student_id = '" + request.params.student_id + "'";
+        let params = [];
+        let sql = "SELECT title FROM subjects INNER JOIN marks ON (subjects.subject_id = marks.subject_id) WHERE student_id = ?";
         console.log(sql);
-        let [result] = await pool.query(sql);
+        params = request.params.student_id;
+        let [result] = await pool.query(sql,params);
         console.log(result);
 
         if (result)
@@ -68,8 +70,10 @@ const getImpartidasID = async (request,response) =>
 {
     try
     {
-        let sql = "SELECT title FROM subjects INNER JOIN subject_teacher ON (subjects.subject_id = subject_teacher.subject_id) INNER JOIN teachers ON (subject_teacher.teacher_id = teachers.teacher_id) WHERE teachers.teacher_id = '" + request.params.teacher_id + "'";
-        let [result] = await pool.query(sql);
+        let params = [];
+        let sql = "SELECT title FROM subjects INNER JOIN subject_teacher ON (subjects.subject_id = subject_teacher.subject_id) INNER JOIN teachers ON (subject_teacher.teacher_id = teachers.teacher_id) WHERE teachers.teacher_id = ?";
+        params = request.params.teacher_id;
+        let [result] = await pool.query(sql,params);
         
         if (result)
             response.send(result);
